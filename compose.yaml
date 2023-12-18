@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  traefik:
+    image: traefik:2.10
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    container_name: traefik
+    command:
+      # - "--log.level=DEBUG"
+      # - "--api.debug=true"
+      - "--api.dashboard=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.docker.network=traefik"
+      - "--entrypoints.web.address=:80"
+      - "--accesslog=true"
+    networks:
+      - traefik
+    labels:
+      # Traefik configuration for the dashboard
+      - traefik.enable=true
+      - traefik.http.routers.traefik-http.rule=Host(`traefik.lh`)
+      - traefik.http.routers.traefik-http.entrypoints=web
+      - traefik.http.routers.traefik-http.service=api@internal
+networks:
+  traefik:
+    name: traefik
