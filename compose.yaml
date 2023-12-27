@@ -6,8 +6,11 @@ services:
     restart: unless-stopped
     ports:
       - "80:80"
+      - "443:443"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - ./traefik/dynamic_conf.yaml:/etc/traefik/dynamic_conf.yaml:ro
+      - ./certs:/etc/certs:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
     container_name: traefik
     command:
       # - "--log.level=DEBUG"
@@ -16,7 +19,10 @@ services:
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
       - "--providers.docker.network=traefik"
+      - "--providers.file.filename=/etc/traefik/dynamic_conf.yaml"
+      - "--providers.file.watch=true"
       - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
       - "--accesslog=true"
     networks:
       - traefik
