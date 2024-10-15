@@ -1,6 +1,9 @@
 api:
   dashboard: true
 
+log:
+  level: DEBUG
+
 entryPoints:
   web:
     address: ":80"
@@ -11,18 +14,6 @@ providers:
   docker:
     network: traefik
 
-certificatesResolvers:
-  letsencrypt:
-    acme:
-      email: admin@example.com
-      storage: acme.json
-      httpChallenge:
-        entryPoint: web
-
-http:
-  routers:
-    api:
-      rule: Host(`local.services.fr`)
-      service: api@internal
-      middlewares:
-        - api-auth
+  # This allows Traefik to serve custom local certificates
+  file:
+    directory: /custom-config
