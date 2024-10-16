@@ -4,6 +4,8 @@ api:
 log:
   level: DEBUG
 
+accessLog: {}
+
 entryPoints:
   web:
     address: ":80"
