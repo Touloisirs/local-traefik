@@ -18,4 +18,5 @@ providers:
 
   # This allows Traefik to serve custom local certificates
   file:
-    directory: /custom-config
+    filename: /etc/traefik/config.yml
+    watch: true
