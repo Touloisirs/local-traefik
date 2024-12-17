@@ -2,4 +2,3 @@ tls:
   certificates:
     - certFile: /etc/traefik/certs/all-domains.pem
       keyFile: /etc/traefik/certs/all-domains-key.pem
-      
