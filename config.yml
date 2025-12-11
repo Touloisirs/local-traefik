@@ -1,3 +1,20 @@
+http:
+  middlewares:
+    cors-spotlight:
+      headers:
+        accessControlAllowOriginList:
+          - "https://dev.touloisirs.fr"
+          - "https://dev.arrivaj.fr"
+        accessControlAllowMethods:
+          - "GET"
+          - "POST"
+          - "OPTIONS"
+        accessControlAllowHeaders:
+          - "Content-Type"
+          - "Authorization"
+        accessControlMaxAge: 100
+        addVaryHeader: true
+
 tls:
   certificates:
     - certFile: /etc/traefik/certs/all-domains.pem
